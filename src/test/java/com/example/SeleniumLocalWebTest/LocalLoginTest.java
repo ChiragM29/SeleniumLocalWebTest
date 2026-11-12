@@ -3,10 +3,11 @@ package com.example.SeleniumLocalWebTest;
 
 import java.io.File;
 
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+
 
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -20,8 +21,14 @@ public class LocalLoginTest {
     @BeforeMethod
     public void setUp() {
 
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+    	ChromeOptions options = new ChromeOptions();
+
+        options.addArguments("--headless=new");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--window-size=1920,1080");
+
+        driver = new ChromeDriver(options);
 
         String page = new File("webpage/login.html")
                 .getAbsoluteFile()
